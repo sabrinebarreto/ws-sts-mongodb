@@ -39,5 +39,16 @@ public class UserService {
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
+	
+	public User update (User obj) { // os dados que o usuário insere nao tem conexão com o banco de dados ainda
+		User newObj = findById(obj.getId()); // você busca o objeto original no banco de dados para poder atualiza-los
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	public void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
 
 }
